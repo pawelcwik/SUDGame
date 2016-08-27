@@ -12,6 +12,10 @@ public class Main {
         
         Player player = new Player(playerName);
         Location startLoc = new Location("Small room","You're in small, dark room. Single bed standing next to the wall is only furniture in here.");
+        Location secondLocation = new Location("Dark corridor","In dim, flickering lights you're not able to see much. Narrow space of the corridor is surrounded by steel walls.");
+        
+        startLoc.addExit("polnoc", secondLocation);
+        secondLocation.addExit("poludnie",startLoc);
         
         player.setCurrentLocation(startLoc);
         

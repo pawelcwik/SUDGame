@@ -13,10 +13,6 @@ public class Player {
         return name;
     }
 
-    public Location getCurrentLocation() {
-        return currentLocation;
-    }
-
     public void setCurrentLocation(Location location) {
         this.currentLocation = location;
     }
