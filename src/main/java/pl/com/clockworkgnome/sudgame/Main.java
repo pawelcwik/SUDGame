@@ -25,12 +25,12 @@ public class Main {
         System.out.println(player.getCurrentLocationDescription());
         
         String command = "";
-        while(!command.equals("zakoncz")) {
+        while(!command.equals("quit")) {
             command = readPlayerInput(scanner);
             actOnCommand(command,player);
         }
         
-        System.out.println("Do zobaczenia!");
+        System.out.println("Goodbye!");
     }
 
     private static String readPlayerInput(Scanner scanner) {
@@ -59,7 +59,7 @@ public class Main {
                 move(Direction.W, player);
                 break;
             default: 
-                System.out.println("Nieznana komenda");
+                System.out.println("Unknown command.");
                 break;
         }
     }
@@ -69,7 +69,7 @@ public class Main {
         if(hasMoved) {
             System.out.println(player.getCurrentLocationDescription());
         } else {
-            System.out.println("You can't go that way");
+            System.out.println("You can't go that way.");
         }
     }
 }
