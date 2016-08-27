@@ -7,7 +7,7 @@ public class Location {
     
     private String longDescription;
     private String shortDescription;
-    private Map<String,Location> exit;
+    private Map<Direction,Location> exit;
 
     public Location(String shortDescription, String longDescription) {
         this.longDescription = longDescription;
@@ -16,20 +16,28 @@ public class Location {
     }
 
     public String getDescription() {
-        return this.shortDescription + "\n" + this.longDescription;
+        return this.shortDescription + "\n" + this.longDescription +"\n"+"Visible exits: " + getExitString();
     }
     
-    public void addExit(String direction, Location location) {
+    public void addExit(Direction direction, Location location) {
         this.exit.put(direction, location);
     }
 
-    public Location getNextLocation(String command) {
-        boolean exists = this.exit.containsKey(command);
+    public Location getNextLocation(Direction direction) {
+        boolean exists = this.exit.containsKey(direction);
         if(exists) {
-            return this.exit.get(command);
+            return this.exit.get(direction);
         } else {
             return null;
         }
+    }
+
+    private String getExitString() {
+        String exitsString = "";
+        for(Direction direction : exit.keySet()) {
+            exitsString+=direction.getDirectionDescription() + " ";
+        }
+        return exitsString;
     }
 
     

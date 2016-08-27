@@ -21,8 +21,8 @@ public class Player {
         return this.currentLocation.getDescription();
     }
 
-    public boolean move(String command) {
-        Location nextLocation = this.currentLocation.getNextLocation(command);
+    public boolean move(Direction direction) {
+        Location nextLocation = this.currentLocation.getNextLocation(direction);
         if(nextLocation!=null) {
             this.currentLocation = nextLocation;
             return true;
