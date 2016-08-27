@@ -23,5 +23,14 @@ public class Location {
         this.exit.put(direction, location);
     }
 
+    public Location getNextLocation(String command) {
+        boolean exists = this.exit.containsKey(command);
+        if(exists) {
+            return this.exit.get(command);
+        } else {
+            return null;
+        }
+    }
+
     
 }

@@ -20,6 +20,16 @@ public class Player {
     public String getCurrentLocationDescription() {
         return this.currentLocation.getDescription();
     }
+
+    public boolean move(String command) {
+        Location nextLocation = this.currentLocation.getNextLocation(command);
+        if(nextLocation!=null) {
+            this.currentLocation = nextLocation;
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     
 }
