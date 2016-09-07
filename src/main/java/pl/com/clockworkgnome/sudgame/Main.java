@@ -1,8 +1,12 @@
 package pl.com.clockworkgnome.sudgame;
 
+import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pl.com.clockworkgnome.sudgame.domain.Direction;
 import pl.com.clockworkgnome.sudgame.domain.Location;
+import pl.com.clockworkgnome.sudgame.domain.NPC;
 import pl.com.clockworkgnome.sudgame.domain.Player;
 
 public class Main {
@@ -13,12 +17,16 @@ public class Main {
         System.out.println("What's your name?");
         String playerName = scanner.nextLine();
         
-        Player player = new Player(playerName);
+        Player player = new Player(playerName,100,10);
         Location startLoc = new Location("Small room","You're in small, dark room. Single bed standing next to the wall is only furniture in here.");
         Location secondLocation = new Location("Dark corridor","In dim, flickering lights you're not able to see much. Narrow space of the corridor is surrounded by steel walls.");
         
         startLoc.addExit(Direction.N, secondLocation);
         secondLocation.addExit(Direction.S,startLoc);
+        
+        NPC ork = new NPC("Ork",50,5);
+              
+        startLoc.addNpc(ork);
         
         player.setCurrentLocation(startLoc);
         
@@ -40,8 +48,12 @@ public class Main {
     }
 
     private static void actOnCommand(String command, Player player) {
-       
-        switch (command) {
+        
+        command = command.toLowerCase();
+        
+        String[] splitted = command.split(" ");
+     
+        switch (splitted[0]) {
             case "n":
             case "north":
                 move(Direction.N, player);
@@ -58,6 +70,9 @@ public class Main {
             case "west":
                 move(Direction.W, player);
                 break;
+            case "kill":
+                attack(splitted[1], player);
+                break;
             default: 
                 System.out.println("Unknown command.");
                 break;
@@ -71,5 +86,22 @@ public class Main {
         } else {
             System.out.println("You can't go that way.");
         }
+    }
+
+    private static void attack(String target, Player player) {
+        NPC targetNPC = player.getNearbyNPC(target);
+        if(target != null) {
+            beginCombat(player,targetNPC);
+        } else {
+            System.out.println("There's no one like that around.");
+        }
+    }
+
+    private static void beginCombat(Player player, NPC targetNPC) {
+        
+        FightThread ft = new FightThread(player,targetNPC);
+        Thread t = new Thread(ft);
+        
+        t.start();
     }
 }
