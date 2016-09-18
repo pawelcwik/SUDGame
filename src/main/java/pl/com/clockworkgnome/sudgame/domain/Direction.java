@@ -7,12 +7,11 @@ public enum Direction {
     private String directionDescription;
 
     private Direction(String directionDescription) {
-        this.directionDescription = directionDescription;
-    
-           
+        this.directionDescription = directionDescription;      
     }
-
-    public String getDirectionDescription() {
+    
+    @Override
+    public String toString() {
         return directionDescription;
     }
     

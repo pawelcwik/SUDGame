@@ -36,11 +36,9 @@ public class NPC {
         this.health = this.health - hit;
     }
     
-    
-    
-    
-    
-    
-    
-    
+    @Override
+    public String toString() {
+        return this.name;
+    }
+      
 }

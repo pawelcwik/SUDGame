@@ -1,9 +1,12 @@
 package pl.com.clockworkgnome.sudgame.domain;
 
+import com.google.common.base.Joiner;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Location {
     
@@ -22,7 +25,7 @@ public class Location {
     public String getDescription() {
         return this.shortDescription + "\n" + this.longDescription 
                 +"\n"+"Visible exits: " + getExitString()
-                +"\n"+ getNPCString();
+                +"\n"+ Joiner.on(", ").join(this.npcs);
     }
     
     public void addExit(Direction direction, Location location) {
@@ -39,26 +42,16 @@ public class Location {
     }
 
     private String getExitString() {
-        String exitsString = "";
-        for(Direction direction : exit.keySet()) {
-            exitsString+=direction.getDirectionDescription() + " ";
-        }
-        return exitsString;
+        List<Direction> locationExits = new ArrayList<>(exit.keySet());
+        Collections.sort(locationExits);    
+        return Joiner.on(", ").join(locationExits);
     }
     
     public void addNpc(NPC npc) {
         this.npcs.add(npc);
     }
 
-    private String getNPCString() {
-       String result = "";
-       for(NPC npc : this.npcs) {
-           result = result + npc.getName() + " ";
-       }
-       return result;
-    }
-
-    boolean isThereNPC(String npcName) {
+    public boolean isThereNPC(String npcName) {
         for(NPC npc : this.npcs) {
             if(npc.getName().equalsIgnoreCase(npcName)) {
                 return true;
@@ -67,7 +60,7 @@ public class Location {
         return false;
     }
 
-    NPC getNPC(String npcName) {
+    public NPC getNPC(String npcName) {
         for(NPC npc : this.npcs) {
             if(npc.getName().equalsIgnoreCase(npcName)) {
                 return npc;

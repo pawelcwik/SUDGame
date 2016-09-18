@@ -20,7 +20,9 @@ public class Player {
         this.strength = strength;
     }
     
-    
+    public Location getCurrentLocation() {
+        return this.currentLocation;
+    }
 
     public String getName() {
         return name;
