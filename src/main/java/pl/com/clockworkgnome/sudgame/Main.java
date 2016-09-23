@@ -17,7 +17,7 @@ public class Main {
         System.out.println("What's your name?");
         String playerName = scanner.nextLine();
         
-        Player player = new Player(playerName,100,10);
+        Player player = new Player(playerName, 100, 10, 20);
         
         player.setCurrentLocation(locationRepository.getStartLocation());
         

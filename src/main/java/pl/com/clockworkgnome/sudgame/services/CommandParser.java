@@ -1,5 +1,8 @@
 package pl.com.clockworkgnome.sudgame.services;
 
+import pl.com.clockworkgnome.sudgame.AgilityFightStrategy;
+import pl.com.clockworkgnome.sudgame.ClassicFightStrategy;
+import pl.com.clockworkgnome.sudgame.FightStrategy;
 import pl.com.clockworkgnome.sudgame.FightThread;
 import pl.com.clockworkgnome.sudgame.domain.Direction;
 import pl.com.clockworkgnome.sudgame.domain.NPC;
@@ -57,8 +60,10 @@ public class CommandParser {
     }
 
     private void beginCombat(Player player, NPC targetNPC) {
+        
+        FightStrategy fs = new AgilityFightStrategy();
 
-        FightThread ft = new FightThread(player, targetNPC);
+        FightThread ft = new FightThread(player, targetNPC, fs);
         Thread t = new Thread(ft);
 
         t.start();
