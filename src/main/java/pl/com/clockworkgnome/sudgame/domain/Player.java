@@ -21,10 +21,6 @@ public class Player {
         this.name = name;
         this.stats = new Statistics(health,strength,agility);
     }
-    
-    public Location getCurrentLocation() {
-        return this.currentLocation;
-    }
 
     public String getName() {
         return name;
